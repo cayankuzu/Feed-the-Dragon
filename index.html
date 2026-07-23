@@ -16,9 +16,12 @@
           <span class="eyebrow">MeMoDe Web Game</span>
           <h1>Feed the Dragon</h1>
         </div>
-        <button id="soundButton" class="sound-button" type="button" aria-pressed="true">
-          Ses açık
-        </button>
+        <div class="header-actions">
+          <button class="help-button" id="helpButton" type="button">Yardım</button>
+          <button id="soundButton" class="sound-button" type="button" aria-pressed="true">
+            Ses açık
+          </button>
+        </div>
       </header>
 
       <section class="stage-card" aria-label="Feed the Dragon oyun alanı">
@@ -29,9 +32,15 @@
           <div class="overlay-panel">
             <span class="overlay-kicker">Altın avı</span>
             <h2 id="overlayTitle">Ejderhayı besle</h2>
-            <p id="overlayText">
-              Yukarı ve aşağı hareket ederek altınları yakala. Her altın oyunu biraz daha hızlandırır.
-            </p>
+            <div id="overlayText" class="overlay-text">
+              <p>Ejderhayı altınlarla aynı yüksekliğe getir ve bütün paraları yakala.</p>
+              <ul>
+                <li><strong>Hareket:</strong> Yukarı/aşağı, W/S veya ekrandaki tuşlar.</li>
+                <li><strong>Dokunmatik:</strong> Oyun alanında parmağını yukarı/aşağı sürükleyebilirsin.</li>
+                <li><strong>Hız:</strong> Her yakalanan altın oyunu biraz daha hızlandırır.</li>
+                <li><strong>Kaçırma:</strong> Ekrandan çıkan her altın bir can götürür.</li>
+              </ul>
+            </div>
             <button id="startButton" type="button">Oyuna başla</button>
           </div>
         </div>

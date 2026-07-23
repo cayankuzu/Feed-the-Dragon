@@ -41,6 +41,12 @@ button { font: inherit; }
   gap: 20px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
 .eyebrow {
   color: #799783;
   font-size: .68rem;
@@ -60,6 +66,7 @@ h1 {
 }
 
 .sound-button,
+.help-button,
 .controls button,
 #startButton {
   min-height: 48px;
@@ -71,7 +78,13 @@ h1 {
   touch-action: manipulation;
 }
 
-.sound-button { padding: 0 18px; white-space: nowrap; }
+.sound-button,
+.help-button { padding: 0 18px; white-space: nowrap; }
+
+.help-button {
+  border-color: var(--green);
+  color: var(--green);
+}
 
 .stage-card {
   position: relative;
@@ -105,6 +118,8 @@ canvas {
 
 .overlay-panel {
   width: min(500px, 100%);
+  max-height: calc(100% - 8px);
+  overflow-y: auto;
   padding: clamp(22px, 5vw, 44px);
   border: 1px solid rgba(128, 255, 149, .18);
   background: rgba(2, 18, 8, .93);
@@ -132,6 +147,18 @@ canvas {
   font-size: .9rem;
   line-height: 1.48;
 }
+
+.overlay-text {
+  margin: 13px auto 20px;
+  color: #a2baa8;
+  font-size: .9rem;
+  line-height: 1.48;
+  text-align: left;
+}
+
+.overlay-text p { margin: 0 0 12px; }
+.overlay-text ul { margin: 0; padding-left: 20px; }
+.overlay-text li + li { margin-top: 7px; }
 
 #startButton {
   width: 100%;
@@ -183,14 +210,24 @@ canvas {
 @media (max-width: 600px) {
   .game-shell { width: calc(100% - 18px); }
   .game-header { padding-bottom: 11px; align-items: center; }
-  .sound-button { min-height: 42px; padding: 0 13px; font-size: .76rem; }
+  .sound-button,
+  .help-button { min-height: 42px; padding: 0 13px; font-size: .76rem; }
   .stage-card { border-radius: 16px; }
   canvas { height: min(58svh, 520px); min-height: 330px; aspect-ratio: auto; }
 }
 
 @media (max-height: 520px) and (orientation: landscape) {
   .game-shell { width: min(100% - 18px, 1120px); padding: 8px 0; }
-  .game-header { display: none; }
+  .game-header {
+    position: absolute;
+    z-index: 5;
+    top: 14px;
+    right: 18px;
+    display: flex;
+    padding: 0;
+  }
+  .game-header > div:first-child,
+  .sound-button { display: none; }
   canvas { height: calc(100svh - 18px); min-height: 0; aspect-ratio: auto; }
   .controls {
     position: absolute;

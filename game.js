@@ -5,6 +5,9 @@ const overlayTitle = document.querySelector("#overlayTitle");
 const overlayText = document.querySelector("#overlayText");
 const startButton = document.querySelector("#startButton");
 const soundButton = document.querySelector("#soundButton");
+const helpButton = document.querySelector("#helpButton");
+const helpMarkup = overlayText.innerHTML;
+const helpTitle = overlayTitle.textContent;
 const ASSET = "feed_the_dragon_assets/";
 
 const dragonImage = loadImage(`${ASSET}dragon_right.png`);
@@ -23,6 +26,9 @@ let width = 1000;
 let height = 400;
 let scale = 1;
 let running = false;
+let hasStarted = false;
+let roundFinished = false;
+let overlayMode = "start";
 let soundEnabled = true;
 let lastTime = 0;
 let score = 0;
@@ -80,6 +86,7 @@ function resetCoin(keepSpeed = false) {
 function resetGame() {
   score = 0;
   lives = 5;
+  roundFinished = false;
   dragon.y = height / 2 - dragon.size / 2;
   resetCoin();
 }
@@ -89,6 +96,8 @@ function startGame() {
   overlay.classList.remove("is-visible");
   startButton.textContent = "Tekrar oyna";
   running = true;
+  hasStarted = true;
+  overlayMode = "resume";
   lastTime = performance.now();
   if (soundEnabled) sounds.music.play().catch(() => {});
   requestAnimationFrame(loop);
@@ -96,10 +105,38 @@ function startGame() {
 
 function gameOver() {
   running = false;
+  hasStarted = false;
+  roundFinished = true;
+  overlayMode = "restart";
   sounds.music.pause();
   overlayTitle.textContent = `Skor: ${score}`;
   overlayText.textContent = "Ejderhanın altın avı burada bitti. Daha hızlı bir seri için yeniden başlayabilirsin.";
   overlay.classList.add("is-visible");
+}
+
+function showHelp() {
+  const canResume = hasStarted && !roundFinished;
+  running = false;
+  keys.clear();
+  dragging = false;
+  sounds.music.pause();
+  overlayMode = canResume ? "resume" : "start";
+  overlayTitle.textContent = helpTitle;
+  overlayText.innerHTML = helpMarkup;
+  startButton.textContent = canResume ? "Oyuna dön" : "Oyuna başla";
+  overlay.classList.add("is-visible");
+}
+
+function handleOverlayAction() {
+  if (overlayMode === "resume") {
+    overlay.classList.remove("is-visible");
+    running = true;
+    lastTime = performance.now();
+    if (soundEnabled) sounds.music.play().catch(() => {});
+    requestAnimationFrame(loop);
+    return;
+  }
+  startGame();
 }
 
 function update(dt) {
@@ -238,7 +275,8 @@ document.querySelectorAll("[data-key]").forEach((button) => {
   button.addEventListener("lostpointercapture", release);
 });
 
-startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", handleOverlayAction);
+helpButton.addEventListener("click", showHelp);
 soundButton.addEventListener("click", () => {
   soundEnabled = !soundEnabled;
   soundButton.textContent = soundEnabled ? "Ses açık" : "Ses kapalı";
