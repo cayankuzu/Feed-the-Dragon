@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#031108" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='.9em' font-size='90'>🐉</text></svg>" />
+    <title>Feed the Dragon</title>
+    <meta name="description" content="Ejderhayı yönlendir, altınları yakala ve gittikçe hızlanan oyunda hayatta kal." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="game-header">
+        <div>
+          <span class="eyebrow">MeMoDe Web Game</span>
+          <h1>Feed the Dragon</h1>
+        </div>
+        <button id="soundButton" class="sound-button" type="button" aria-pressed="true">
+          Ses açık
+        </button>
+      </header>
+
+      <section class="stage-card" aria-label="Feed the Dragon oyun alanı">
+        <canvas id="gameCanvas" width="1000" height="400">
+          Tarayıcınız canvas özelliğini desteklemiyor.
+        </canvas>
+        <div id="gameOverlay" class="game-overlay is-visible">
+          <div class="overlay-panel">
+            <span class="overlay-kicker">Altın avı</span>
+            <h2 id="overlayTitle">Ejderhayı besle</h2>
+            <p id="overlayText">
+              Yukarı ve aşağı hareket ederek altınları yakala. Her altın oyunu biraz daha hızlandırır.
+            </p>
+            <button id="startButton" type="button">Oyuna başla</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Dokunmatik oyun kontrolleri">
+        <button data-key="ArrowUp" type="button" aria-label="Yukarı hareket et">
+          <strong>↑</strong><span>Yukarı</span>
+        </button>
+        <button data-key="ArrowDown" type="button" aria-label="Aşağı hareket et">
+          <strong>↓</strong><span>Aşağı</span>
+        </button>
+      </section>
+
+      <footer class="game-footer">
+        <p><strong>Hareket:</strong> Yukarı/aşağı okları veya W/S</p>
+        <p>Mobilde ekrandaki tuşları ya da oyun alanında sürüklemeyi kullan.</p>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
